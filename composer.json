@@ -1,6 +1,6 @@
 {
     "name": "vantoozz/scientist",
-    "description": "A PHP experimentation library inspired by Github's own Scientist.",
+    "description": "A PHP 5.3 experimentation library inspired by Github's own Scientist.",
     "keywords": ["scientist", "testing", "experiment", "framework", "dayle", "test"],
     "license": "MIT",
     "type": "library",
