@@ -10,7 +10,7 @@ class InternTest extends PHPUnit_Framework_TestCase
     public function test_that_intern_can_be_created()
     {
         $i = new Intern;
-        $this->assertInstanceOf(Intern::class, $i);
+        $this->assertInstanceOf('\Scientist\Intern', $i);
     }
 
     public function test_that_intern_can_run_an_experiment()
@@ -19,7 +19,7 @@ class InternTest extends PHPUnit_Framework_TestCase
         $e = new Experiment('test experiment', new Laboratory);
         $e->control(function () { return 'foo'; });
         $v = $i->run($e);
-        $this->assertInstanceOf(Report::class, $v);
+        $this->assertInstanceOf('\Scientist\Report', $v);
         $this->assertEquals('foo', $v->getControl()->getValue());
     }
 
@@ -30,7 +30,7 @@ class InternTest extends PHPUnit_Framework_TestCase
         $e->control(function () { return 'foo'; });
         $e->trial('bar', function () { return 'foo'; });
         $v = $i->run($e);
-        $this->assertInstanceOf(Report::class, $v);
+        $this->assertInstanceOf('\Scientist\Report', $v);
         $this->assertTrue($v->getTrial('bar')->isMatch());
     }
 
@@ -41,7 +41,7 @@ class InternTest extends PHPUnit_Framework_TestCase
         $e->control(function () { return 'foo'; });
         $e->trial('bar', function () { return 'bar'; });
         $v = $i->run($e);
-        $this->assertInstanceOf(Report::class, $v);
+        $this->assertInstanceOf('\Scientist\Report', $v);
         $this->assertFalse($v->getTrial('bar')->isMatch());
     }
 
@@ -53,7 +53,7 @@ class InternTest extends PHPUnit_Framework_TestCase
         $e->trial('bar', function () { return 'foo'; });
         $e->trial('baz', function () { return 'baz'; });
         $v = $i->run($e);
-        $this->assertInstanceOf(Report::class, $v);
+        $this->assertInstanceOf('\Scientist\Report', $v);
         $this->assertTrue($v->getTrial('bar')->isMatch());
         $this->assertFalse($v->getTrial('baz')->isMatch());
     }

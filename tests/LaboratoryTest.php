@@ -8,12 +8,13 @@ class LaboratoryTest extends PHPUnit_Framework_TestCase
     public function test_laboratory_can_be_created()
     {
         $l = new Laboratory;
-        $this->assertInstanceOf(Laboratory::class, $l);
+        $this->assertInstanceOf('\Scientist\Laboratory', $l);
     }
 
     public function test_laboratory_can_run_experiment_with_no_journals()
     {
-        $v = (new Laboratory)
+        $laboratory = (new Laboratory);
+        $v = $laboratory
             ->experiment('test experiment')
             ->control(function () { return 'foo'; })
             ->trial('trial name', function () { return 'foo'; })
@@ -24,13 +25,14 @@ class LaboratoryTest extends PHPUnit_Framework_TestCase
 
     public function test_laboratory_can_fetch_report_for_experiment_with_no_journals()
     {
-        $r = (new Laboratory)
+        $laboratory = (new Laboratory);
+        $r = $laboratory
             ->experiment('test experiment')
             ->control(function () { return 'foo'; })
             ->trial('trial', function () { return 'bar'; })
             ->report();
 
-        $this->assertInstanceOf(Report::class, $r);
+        $this->assertInstanceOf('\Scientist\Report', $r);
         $this->assertEquals('foo', $r->getControl()->getValue());
         $this->assertEquals('bar', $r->getTrial('trial')->getValue());
         $this->assertInternalType('float', $r->getControl()->getStartTime());
@@ -52,9 +54,10 @@ class LaboratoryTest extends PHPUnit_Framework_TestCase
 
     public function test_that_exceptions_are_thrown_within_control()
     {
-        $this->setExpectedException(Exception::class);
+        $this->setExpectedException('\Exception');
 
-        $v = (new Laboratory)
+        $laboratory = (new Laboratory);
+        $v = $laboratory
             ->experiment('test experiment')
             ->control(function () { throw new Exception; })
             ->trial('trial', function () { return 'foo'; })
@@ -63,26 +66,28 @@ class LaboratoryTest extends PHPUnit_Framework_TestCase
 
     public function test_that_exceptions_are_swallowed_within_the_trial()
     {
-        $r = (new Laboratory)
+        $laboratory = (new Laboratory);
+        $r = $laboratory
             ->experiment('test experiment')
             ->control(function () { return 'foo'; })
             ->trial('trial', function () { throw new Exception; })
             ->report();
 
-        $this->assertInstanceOf(Report::class, $r);
+        $this->assertInstanceOf('\Scientist\Report', $r);
         $this->assertInternalType('null', $r->getControl()->getException());
-        $this->assertInstanceOf(Exception::class, $r->getTrial('trial')->getException());
+        $this->assertInstanceOf('\Exception', $r->getTrial('trial')->getException());
     }
 
     public function test_that_control_and_trials_receive_parameters()
     {
-        $r = (new Laboratory)
+        $laboratory = (new Laboratory);
+        $r = $laboratory
             ->experiment('test experiment')
             ->control(function ($one, $two) { return $one; })
             ->trial('trial', function ($one, $two) { return $two; })
             ->report('Panda', 'Giraffe');
 
-        $this->assertInstanceOf(Report::class, $r);
+        $this->assertInstanceOf('\Scientist\Report', $r);
         $this->assertEquals('Panda', $r->getControl()->getValue());
         $this->assertEquals('Giraffe', $r->getTrial('trial')->getValue());
     }

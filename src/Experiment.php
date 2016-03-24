@@ -34,14 +34,14 @@ class Experiment
      *
      * @var array
      */
-    protected $trials = [];
+    protected $trials = array();
 
     /**
      * Parameters for our callbacks.
      *
      * @var array
      */
-    protected $params = [];
+    protected $params = array();
 
     /**
      * Laboratory instance.

@@ -31,7 +31,7 @@ class Report
      *
      * @var array
      */
-    protected $trials = [];
+    protected $trials = array();
 
     /**
      * Create a new result instance.
@@ -40,7 +40,7 @@ class Report
      * @param \Scientist\Result $control
      * @param array             $trials
      */
-    public function __construct($name, Result $control, array $trials = [])
+    public function __construct($name, Result $control, array $trials = array())
     {
         $this->name    = $name;
         $this->control = $control;

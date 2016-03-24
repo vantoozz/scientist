@@ -19,7 +19,7 @@ class Laboratory
      *
      * @var \Scientist\Journals\Journal[]
      */
-    protected $journals = [];
+    protected $journals = array();
 
     /**
      * Register a collection of journals.
@@ -28,9 +28,9 @@ class Laboratory
      *
      * @return $this
      */
-    public function setJournals(array $journals = [])
+    public function setJournals(array $journals = array())
     {
-        $this->journals = [];
+        $this->journals = array();
         foreach ($journals as $journal) {
             $this->addJournal($journal);
         }
@@ -85,6 +85,7 @@ class Laboratory
     {
         if ($experiment->shouldRun()) {
             $report = $this->getReport($experiment);
+
             return $report->getControl()->getValue();
         }
 
@@ -103,7 +104,8 @@ class Laboratory
      */
     public function getReport(Experiment $experiment)
     {
-        $report = (new Intern)->run($experiment);
+        $intern = (new Intern);
+        $report = $intern->run($experiment);
         $this->reportToJournals($experiment, $report);
 
         return $report;

@@ -40,7 +40,9 @@ class Intern
      */
     protected function runControl(Experiment $experiment)
     {
-        return (new Machine($experiment->getControl(), $experiment->getParams()))->execute();
+        $machine = (new Machine($experiment->getControl(), $experiment->getParams()));
+
+        return $machine->execute();
     }
 
     /**
@@ -52,14 +54,15 @@ class Intern
      */
     protected function runTrials(Experiment $experiment)
     {
-        $executions = [];
+        $executions = array();
 
         foreach ($experiment->getTrials() as $name => $trial) {
-            $executions[$name] = (new Machine(
+            $machine = (new Machine(
                 $trial,
                 $experiment->getParams(),
                 true
-            ))->execute();
+            ));
+            $executions[$name] = $machine->execute();
         }
 
         return $executions;
@@ -72,7 +75,7 @@ class Intern
      * @param \Scientist\Result           $control
      * @param \Scientist\Result[]         $trials
      */
-    protected function determineMatches(Matcher $matcher, Result $control, array $trials = [])
+    protected function determineMatches(Matcher $matcher, Result $control, array $trials = array())
     {
         foreach ($trials as $trial) {
             if ($matcher->match($control->getValue(), $trial->getValue())) {

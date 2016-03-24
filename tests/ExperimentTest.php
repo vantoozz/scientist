@@ -9,7 +9,7 @@ class ExperimentTest extends PHPUnit_Framework_TestCase
     public function test_that_a_new_experiment_can_be_created()
     {
         $e = new Experiment('test experiment', new Laboratory);
-        $this->assertInstanceOf(Experiment::class, $e);
+        $this->assertInstanceOf('\Scientist\Experiment', $e);
     }
 
     public function test_that_experiment_name_is_set()
@@ -53,11 +53,11 @@ class ExperimentTest extends PHPUnit_Framework_TestCase
         $e->trial('first', $first);
         $e->trial('second', $second);
         $e->trial('third', $third);
-        $expected = [
+        $expected = array(
             'first'  => $first,
             'second' => $second,
             'third'  => $third
-        ];
+        );
         $this->assertSame($expected, $e->getTrials());
     }
 
@@ -72,14 +72,14 @@ class ExperimentTest extends PHPUnit_Framework_TestCase
     {
         $e = new Experiment('test experiment', new Laboratory);
         $e->matcher(new StandardMatcher);
-        $this->assertInstanceOf(StandardMatcher::class, $e->getMatcher());
+        $this->assertInstanceOf('\Scientist\Matchers\StandardMatcher', $e->getMatcher());
     }
 
     public function test_that_an_experiment_laboratory_can_be_set()
     {
         $l = new Laboratory;
         $e = new Experiment('test experiment', $l);
-        $this->assertInstanceOf(Laboratory::class, $e->getLaboratory());
+        $this->assertInstanceOf('\Scientist\Laboratory', $e->getLaboratory());
         $this->assertSame($l, $e->getLaboratory());
     }
 

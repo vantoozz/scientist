@@ -23,7 +23,7 @@ class Machine
      *
      * @var array
      */
-    protected $params = [];
+    protected $params = array();
 
     /**
      * Should exceptions be muted.
@@ -46,7 +46,7 @@ class Machine
      * @param array    $params
      * @param boolean  $muted
      */
-    public function __construct(callable $callback, array $params = [], $muted = false)
+    public function __construct(callable $callback, array $params = array(), $muted = false)
     {
         $this->callback = $callback;
         $this->params   = $params;

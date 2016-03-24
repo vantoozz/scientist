@@ -48,7 +48,7 @@ class ResultTest extends PHPUnit_Framework_TestCase
     {
         $r = new Result;
         $r->setException(new Exception);
-        $this->assertInstanceOf(Exception::class, $r->getException());
+        $this->assertInstanceOf('\Exception', $r->getException());
     }
 
     public function test_result_can_have_match_status()
