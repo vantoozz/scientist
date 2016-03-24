@@ -45,13 +45,19 @@ class Machine
      * @param callable $callback
      * @param array    $params
      * @param boolean  $muted
+     *
+     * @throws \InvalidArgumentException
      */
-    public function __construct(callable $callback, array $params = array(), $muted = false)
+    public function __construct($callback, array $params = array(), $muted = false)
     {
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException('Argument 1 must be callable');
+        }
+
         $this->callback = $callback;
-        $this->params   = $params;
-        $this->muted    = $muted;
-        $this->result   = new Result;
+        $this->params = $params;
+        $this->muted = $muted;
+        $this->result = new Result;
 
     }
 

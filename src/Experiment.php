@@ -103,9 +103,14 @@ class Experiment
      * @param callable $callback
      *
      * @return $this
+     * @throws \InvalidArgumentException
      */
-    public function control(callable $callback)
+    public function control($callback)
     {
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException('Argument 1 must be callable');
+        }
+
         $this->control = $callback;
 
         return $this;
@@ -128,9 +133,14 @@ class Experiment
      * @param callable $callback
      *
      * @return $this
+     * @throws \InvalidArgumentException
      */
-    public function trial($name, callable $callback)
+    public function trial($name, $callback)
     {
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException('Argument 2 must be callable');
+        }
+
         $this->trials[$name] = $callback;
 
         return $this;
@@ -191,7 +201,7 @@ class Experiment
      */
     public function chance($chance)
     {
-        $this->chance = (int) $chance;
+        $this->chance = (int)$chance;
 
         return $this;
     }
